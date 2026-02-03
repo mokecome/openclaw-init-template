@@ -1,6 +1,4 @@
-# 🐈‍⬛ xiaomo-starter-kit
-
-> 你的 AI 私人助手，一鍵啟動。基於 [OpenClaw](https://openclaw.ai)（原 Clawdbot），中文用戶友好。
+你的 AI 私人助手，一鍵啟動。基於 [OpenClaw](https://openclaw.ai)（原 Clawdbot），中文用戶友好。
 
 <p align="center">
   <img src="https://img.shields.io/badge/OpenClaw-100k%2B%20⭐-blueviolet" alt="OpenClaw Stars" />
@@ -101,15 +99,12 @@ my-assistant/
 
 我們寫了一份詳細的《人人都該有一個 AI 私人助手》7 天指南：
 
-- **Day 1**: 遇見你的 AI 助手
-- **Day 2**: 10 分鐘搭建
-- **Day 3**: 給助手一個靈魂
-- **Day 4**: 接入數字生活
-- **Day 5**: 解鎖技能樹
-- **Day 6**: 讓助手主動工作
-- **Day 7**: 進階玩法
-
-👉 [閱讀完整指南（飛書知識庫）](https://my.feishu.cn/wiki/YkWgwqSchi9xW3kEuZscAm0lnFf)
+- **Day 1**: 一行命令搭建你的AI助手
+- **Day 2**: 下載模板設定個性化
+- **Day 3**: 接入數字生活
+- **Day 4**: 接入技能
+- **Day 5**: 讓助手主動工作
+- **Day 6**: 進階玩法
 
 ## 🔒 安全提醒
 
@@ -120,10 +115,10 @@ my-assistant/
 
 ## 👤 關於
 
-由 [MIKE](https://github.com/mengjian-github) 和小 共同創建。
+由 [MIKE](https://github.com/mokecome)) 和小堂 共同創建。
 
-- 🐦 Twitter: 
-- 💬 LINE：
+- 🐦 Twitter: https://x.com/mokecome
+- 💬 LINE：mokecome
 
 ## 📄 License
 
