@@ -115,7 +115,7 @@ my-assistant/
 
 ## 👤 關於
 
-由 [MIKE](https://github.com/mokecome)) 和小堂 共同創建。
+由 [MIKE] (https://github.com/mokecome)) 和小堂 共同創建。
 
 - 🐦 Twitter: https://x.com/mokecome
 - 💬 LINE：mokecome
