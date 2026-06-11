@@ -1,15 +1,30 @@
-# Environment & secrets
+# Secrets —— 真值只進 env.local.sh，永不提交（env.sh 是佔位符模板，可提交）
+env.local.sh
 .env
 .env.*
-clawdbot.json
+
+# 運行期狀態（首次啟動自動重建）
+memory/*
+!memory/.gitkeep
+logs/
+sessions/
+agents/
+cron/jobs-state.json
+flows/*.sqlite
+workspace-*/.openclaw/
+workspace-*/memory/
+workspace-*/output/
 
 # OS
 .DS_Store
 Thumbs.db
 
-# Node
+# Node / Python
 node_modules/
+__pycache__/
+*.pyc
 
 # Temp
 *.tmp
 *.log
+*.bak

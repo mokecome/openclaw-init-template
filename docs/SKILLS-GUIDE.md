@@ -1,42 +1,40 @@
-# 推薦 Skills 安裝指南
+# Skills 指南
 
-## 🌟 必裝
+> ⚠️ **設計鐵則：不要先堆 Skill。** 配 Skill 是開發動作，不是設計動作。
+> 先完成「能力盤點 → 業務分析 → 系統架構」，確定了「幾個 Agent、各管什麼」之後，
+> 再往對應子 Agent 的 `workspace-<id>/skills/` 裡裝技能。
 
-### 天氣
-```bash
-clawdhub install weather
+## 兩類 Skill
+
+| 類型 | 放哪裡 | 怎麼來 |
+|------|--------|--------|
+| **業務 Skill**（核心價值所在） | 各子 Agent 的 `workspace-<id>/skills/` | 多數手寫——越靠近合規邊界越要手寫（合規過濾層必須自己掌控）；每個 Skill 一個目錄，`SKILL.md` 寫清做什麼、何時用、怎麼用 |
+| **通用 Skill**（生活/效率輔助） | 全局安裝，按需在 `config/openclaw.yaml` 的 `skills.entries` 啟用 | 從 Hub 安裝（命令以你 OpenClaw 版本的 hub CLI 為準，`clawhub` / `clawdhub`） |
+
+## 通用 Skill 推薦（適合掛在 Router / main 上）
+
+| 技能 | 用途 | 安裝命令 |
+|------|------|---------|
+| weather | 天氣查詢 | `clawdhub install weather` |
+| remind-me | 自然語言提醒，自動創建 cron | `clawdhub install remind-me` |
+| todo-tracker | 任務管理（優先級/完成狀態） | `clawdhub install jdrhyne/todo-tracker` |
+| gog | Google 郵箱/日曆/文檔（需 OAuth） | `clawdhub install gog` |
+| github | GitHub 操作 | 內置（需 `gh` CLI 登錄） |
+| youtube-watcher | 視頻字幕摘要 | `clawdhub install youtube-watcher` |
+| web-search | 網頁搜索 | 內置 |
+
+完整列表見 [ClawHub](https://clawhub.com)。
+
+## 業務 Skill 的目錄約定
+
 ```
-天氣查詢，支持全球城市。
-
-### 提醒
-```bash
-clawdhub install remind-me
+workspace-agent-a/skills/
+└── <skill-name>/            # 動名詞命名，如 parsing-resumes、scoring-candidates
+    ├── SKILL.md             # 做什麼、何時用、怎麼用（Agent 執行前先讀它）
+    └── scripts/             # 腳本（Python / Node / bash）
 ```
-自然語言設置提醒，自動創建 cron 任務。
 
-### TODO
-```bash
-clawdhub install jdrhyne/todo-tracker
-```
-任務管理，支持優先級和完成狀態。
+## 安全提醒
 
-## 📧 效率
-
-### Google 套件（Gmail/Calendar/Drive）
-```bash
-clawdhub install gog
-```
-需要 Google OAuth 配置。參考 [gog 文檔](https://clawdhub.com/skills/gog)。
-
-### GitHub
-內置 skill，需要 `gh` CLI 登錄。
-
-## 🔍 信息
-
-### YouTube 摘要
-```bash
-clawdhub install youtube-watcher
-```
-獲取視頻字幕並生成摘要。
-
----
+- 安裝第三方 Skill 前**檢查源碼**——它將獲得 Agent 的執行權限。
+- 涉及敏感數據的處理鏈路（脫敏、過濾、審計），**不用第三方 Skill，自己手寫**。

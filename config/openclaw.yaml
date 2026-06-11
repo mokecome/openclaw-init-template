@@ -1,0 +1,214 @@
+{
+  "gateway": {
+    "port": 18790,
+    "mode": "local",
+    "auth": {
+      "mode": "token",
+      "token": {
+        "source": "env",
+        "provider": "default",
+        "id": "OPENCLAW_GATEWAY_TOKEN"
+      }
+    }
+  },
+  "plugins": {
+    "entries": {
+      "diagnostics-otel": {
+        "enabled": true
+      },
+      "lobster": {
+        "enabled": true
+      },
+      "llm-task": {
+        "enabled": true
+      }
+    }
+  },
+  "diagnostics": {
+    "enabled": true,
+    "otel": {
+      "enabled": true,
+      "endpoint": "http://127.0.0.1:4318",
+      "protocol": "http/protobuf",
+      "serviceName": "__PROJECT_NAME__",
+      "sampleRate": 1,
+      "flushIntervalMs": 10000
+    }
+  },
+  "tools": {
+    "alsoAllow": [
+      "lobster",
+      "llm-task"
+    ],
+    "agentToAgent": {
+      "enabled": true,
+      "allow": [
+        "router",
+        "agent-a",
+        "agent-b"
+      ]
+    }
+  },
+  "agents": {
+    "list": [
+      {
+        "id": "main"
+      },
+      {
+        "id": "agent-a",
+        "name": "agent-a",
+        "workspace": "__PROFILE_DIR__/workspace-agent-a",
+        "agentDir": "__PROFILE_DIR__/agent-dirs/agent-a",
+        "tools": {
+          "allow": [
+            "group:memory",
+            "group:web",
+            "group:fs",
+            "group:sessions",
+            "group:media",
+            "group:runtime"
+          ]
+        }
+      },
+      {
+        "id": "agent-b",
+        "name": "agent-b",
+        "workspace": "__PROFILE_DIR__/workspace-agent-b",
+        "agentDir": "__PROFILE_DIR__/agent-dirs/agent-b",
+        "tools": {
+          "allow": [
+            "group:memory",
+            "group:web",
+            "group:fs",
+            "group:sessions",
+            "group:media",
+            "group:runtime"
+          ]
+        }
+      },
+      {
+        "id": "router",
+        "name": "router",
+        "workspace": "__PROFILE_DIR__/workspace-router",
+        "agentDir": "__PROFILE_DIR__/agent-dirs/router",
+        "tools": {
+          "allow": [
+            "*"
+          ]
+        },
+        "subagents": {
+          "allowAgents": [
+            "agent-a",
+            "agent-b"
+          ]
+        }
+      }
+    ],
+    "defaults": {
+      "model": {
+        "primary": "deepseek/deepseek-v4-pro",
+        "fallbacks": [
+          "qwen/qwen-max"
+        ]
+      },
+      "memorySearch": {
+        "enabled": true,
+        "provider": "openai",
+        "model": "text-embedding-v3",
+        "remote": {
+          "baseUrl": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+          "apiKey": {
+            "source": "env",
+            "provider": "default",
+            "id": "DASHSCOPE_API_KEY"
+          }
+        },
+        "outputDimensionality": 1024
+      }
+    }
+  },
+  "hooks": {
+    "internal": {
+      "enabled": true,
+      "entries": {
+        "command-logger": {
+          "enabled": true
+        },
+        "boot-md": {
+          "enabled": true
+        },
+        "bootstrap-extra-files": {
+          "enabled": true
+        },
+        "compaction-notifier": {
+          "enabled": true
+        },
+        "session-memory": {
+          "enabled": true
+        }
+      }
+    }
+  },
+  "models": {
+    "providers": {
+      "deepseek": {
+        "baseUrl": "https://api.deepseek.com",
+        "apiKey": {
+          "source": "env",
+          "provider": "default",
+          "id": "DEEPSEEK_API_KEY"
+        },
+        "models": [
+          {
+            "id": "deepseek-v4-pro",
+            "name": "DeepSeek V4 Pro",
+            "api": "openai-completions",
+            "reasoning": true,
+            "input": [
+              "text"
+            ],
+            "contextWindow": 1000000
+          },
+          {
+            "id": "deepseek-v4-flash",
+            "name": "DeepSeek V4 Flash",
+            "api": "openai-completions",
+            "reasoning": true,
+            "input": [
+              "text"
+            ],
+            "contextWindow": 1000000
+          }
+        ]
+      },
+      "qwen": {
+        "baseUrl": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+        "apiKey": {
+          "source": "env",
+          "provider": "default",
+          "id": "DASHSCOPE_API_KEY"
+        },
+        "models": [
+          {
+            "id": "qwen-max",
+            "name": "通义千问 Max",
+            "api": "openai-completions",
+            "input": [
+              "text"
+            ],
+            "contextWindow": 32768
+          },
+          {
+            "id": "qwen-plus",
+            "name": "通义千问 Plus",
+            "api": "openai-completions",
+            "input": [
+              "text"
+            ],
+            "contextWindow": 131072
+          }
+        ]
+      }
+    }
+  }
+}
